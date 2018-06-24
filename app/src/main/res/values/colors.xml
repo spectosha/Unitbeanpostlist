@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#DC272D</color>
+    <color name="colorPrimaryDark">#b01f23</color>
+    <color name="colorAccent">#0033ff</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+
+    <color name="background">#eaeaea</color>
+    <color name="underline">#87969696</color>
+
+    <color name="text_color_grey">#393939</color>
+    <color name="text_color_light_grey">#969696</color>
+    <color name="text_color_body">#000000</color>
+    <color name="text_color_date">#4c4c4c</color>
+</resources>

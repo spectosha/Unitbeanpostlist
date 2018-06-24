@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_indent">16dp</dimen>
+    <dimen name="base_indent_half">8dp</dimen>
+    <dimen name="base_elevation">4dp</dimen>
+    <dimen name="base_tranzition_Z">2dp</dimen>
+    <dimen name="base_corner_radius">4dp</dimen>
+
+    <dimen name="toolbar_title_margin">72dp</dimen>
+
+    <dimen name="comment_image">40dp</dimen>
+    <dimen name="comment_image_half">20dp</dimen>
+</resources>

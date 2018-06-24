@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/underline"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_indent">
+
+        <ImageView
+            android:layout_width="@dimen/comment_image"
+            android:layout_height="@dimen/comment_image"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/shape_profile_phono_comment"
+            android:layout_gravity="center"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/comment_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/text_color_grey"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:layout_toStartOf="@+id/comment_item_date"
+                android:layout_toLeftOf="@+id/comment_item_date"
+                tools:text="Аполлинария Пантелеимоновна Христорождественская" />
+
+            <TextView
+                android:id="@+id/comment_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="normal"
+                android:textColor="@color/text_color_date"
+                android:layout_alignParentRight="true"
+                tools:text="11 янв, 2017"
+                />
+
+            <TextView
+                android:id="@+id/comment_item_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="normal"
+                android:layout_below="@+id/comment_item_name"
+                android:textColor="@color/text_color_grey"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Очень познавательно!"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

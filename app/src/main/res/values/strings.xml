@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Unitbean</string>
+    <string name="common_error">Error!</string>
+    <string name="common_ok">OK</string>
+
+    <string name="post_action_bar_title">Статья</string>
+</resources>
