@@ -29,7 +29,6 @@ public abstract class UbDatabase extends RoomDatabase {
                 }
             }
         }
-        Log.i(BaseView.LOG_TAG, context.getDatabasePath("unitbean_db").toString());
         return INSTANCE;
     }
 

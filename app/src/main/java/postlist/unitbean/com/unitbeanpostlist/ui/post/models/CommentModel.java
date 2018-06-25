@@ -2,6 +2,7 @@ package postlist.unitbean.com.unitbeanpostlist.ui.post.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CommentModel {
@@ -70,12 +71,25 @@ public class CommentModel {
     public String getDate(){
         Date date = new Date();
 
-        String day = String.format("%1$td", date) + " ";
-        String monch = String.format("%1$tb", date) + " ";
-        monch.replace(".", ",");
-        String year = String.format("%1$tY", date);
-
-        return day + monch + year;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        String dateStr = dateFormat.format(date);
+        return dateStr.replace(".", ",");
     }
 
+    public CommentModel copy(){
+        CommentModel comment = new CommentModel();
+        comment.setId(id);
+        comment.setPostId(postId);
+        comment.setName(name);
+        comment.setBody(body);
+        comment.setEmail(email);
+        return comment;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + " " +
+                "body: " + body + " " +
+                "name: " + name + " ";
+    }
 }

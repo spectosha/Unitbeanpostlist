@@ -16,8 +16,8 @@ public class PostEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "user_id")
-    private int user_id;
+    @ColumnInfo(name = "userId")
+    private int userId;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -25,16 +25,16 @@ public class PostEntity {
     @ColumnInfo(name = "body")
     private String body;
 
-    public PostEntity(int user_id, String title, String body) {
-        this.user_id = user_id;
+    public PostEntity(int userId, String title, String body) {
+        this.userId = userId;
         this.title = title;
         this.body = body;
     }
 
     @Ignore
-    public PostEntity(int id, int user_id, String title, String body) {
+    public PostEntity(int id, int userId, String title, String body) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = userId;
         this.title = title;
         this.body = body;
     }
@@ -47,12 +47,12 @@ public class PostEntity {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -74,12 +74,12 @@ public class PostEntity {
     @Override
     public String toString() {
         return "id: " + id + " " +
-                "user_id: " + user_id + " " +
+                "userId: " + userId + " " +
                 "title: " + title + " " +
                 "body: " + body;
     }
 
     public PostModel castToPostModel(){
-        return new PostModel(id, user_id, title, body);
+        return new PostModel(id, userId, title, body);
     }
 }

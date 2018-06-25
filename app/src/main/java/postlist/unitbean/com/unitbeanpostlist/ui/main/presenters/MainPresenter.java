@@ -17,7 +17,7 @@ import postlist.unitbean.com.unitbeanpostlist.ui.main.views.MainView;
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
 
-    List<PostModel> list = new ArrayList<>();
+    private List<PostModel> list = new ArrayList<>();
 
     public void makeRequestToPosts() {
 

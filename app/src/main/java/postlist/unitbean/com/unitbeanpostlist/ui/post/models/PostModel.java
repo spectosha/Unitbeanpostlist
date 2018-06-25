@@ -1,13 +1,15 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.post.models;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import postlist.unitbean.com.unitbeanpostlist.di.services.db.entities.PostEntity;
-import postlist.unitbean.com.unitbeanpostlist.ui.post.models.CommentModel;
 
 public class PostModel {
 
@@ -48,11 +50,11 @@ public class PostModel {
         this.id = id;
     }
 
-    public int getUser_id() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUserId(int user_id) {
         this.userId = user_id;
     }
 
@@ -73,13 +75,9 @@ public class PostModel {
     }
 
     public String getDate(){
-
-        String day = String.format("%1$td", date) + " ";
-        String monch = String.format("%1$tb", date) + " ";
-        monch = monch.replace(".", ",");
-        String year = String.format("%1$tY", date);
-
-        return day + monch + year;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        String dateStr = dateFormat.format(date);
+        return dateStr.replace(".", ",");
     }
 
     @Override
@@ -88,6 +86,15 @@ public class PostModel {
                 "user_id: " + userId + " " +
                 "title: " + title + " " +
                 "body: " + body;
+    }
+
+    public PostModel copy(){
+        PostModel post = new PostModel();
+        post.setId(id);
+        post.setBody(body);
+        post.setTitle(title);
+        post.setUserId(userId);
+        return post;
     }
 
     public PostEntity castToPostEntity(){

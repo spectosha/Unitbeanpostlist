@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/post_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorPrimary"
+            android:letterSpacing="-0.02"
+            android:layout_marginHorizontal="@dimen/base_indent"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="17dp"
+            tools:text="Title"
+            />
+
+        <TextView
+            android:id="@+id/post_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:letterSpacing="-0.02"
+            android:layout_marginHorizontal="@dimen/base_indent"
+            android:layout_marginBottom="11dp"
+            tools:text="date"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/underline"
+            android:layout_marginBottom="17.5dp"/>
+
+        <TextView
+            android:id="@+id/post_item_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"
+            android:textColor="@color/text_color_body"
+            android:letterSpacing="-0.02"
+            android:layout_marginHorizontal="@dimen/base_indent"
+            android:paddingBottom="@dimen/base_indent"
+            tools:text="Body"
+            />
+</LinearLayout>

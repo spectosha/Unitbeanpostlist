@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:paddingVertical="@dimen/base_indent_half"
         android:clipToPadding="false"
-        android:layout_below="@id/toolbar"/>
+        android:layout_below="@id/toolbar"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
     <ProgressBar
         android:id="@+id/main_progress_bar"

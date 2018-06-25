@@ -2,8 +2,10 @@ package postlist.unitbean.com.unitbeanpostlist.ui.main.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.support.v7.widget.Toolbar;
 
@@ -13,29 +15,35 @@ import java.util.List;
 
 import postlist.unitbean.com.unitbeanpostlist.R;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.activities.BaseActivity;
+import postlist.unitbean.com.unitbeanpostlist.ui.base.adapter.BaseAdapter;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.adapters.MainPostAdapter;
+import postlist.unitbean.com.unitbeanpostlist.ui.main.adapters.PostDiffUtilCalback;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.models.PostModel;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.presenters.MainPresenter;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.views.MainView;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.activities.PostActivity;
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView, BaseAdapter.OnItemClickListener {
 
     @InjectPresenter
     MainPresenter presenter;
 
-    ProgressBar progressBar;
-    Toolbar toolbar;
-    RecyclerView recyclerView;
-    MainPostAdapter adapter;
+    private Toolbar toolbar;
+
+    private ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private MainPostAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
-        recyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
+        progressBar = findViewById(R.id.main_progress_bar);
+        recyclerView = findViewById(R.id.main_recycler_view);
+        adapter = new MainPostAdapter();
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,17 +52,11 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void showPosts(List<PostModel> list) {
-        LinearLayoutManager layout = new LinearLayoutManager(this);
-
-        recyclerView.setLayoutManager(layout);
-        adapter = new MainPostAdapter(list);
-        recyclerView.setAdapter(adapter);
-    }
-
-    public void openPost(int position) {
-        Intent intent = new Intent(this, PostActivity.class);
-        startActivity(intent);
+    public void showPosts(List<PostModel> newPosts) {
+        PostDiffUtilCalback postDiffUtil = new PostDiffUtilCalback(adapter.getList(), newPosts);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(postDiffUtil);
+        adapter.setList(newPosts);
+        diffResult.dispatchUpdatesTo(adapter);
     }
 
     @Override
@@ -73,5 +75,11 @@ public class MainActivity extends BaseActivity implements MainView {
         intent.putExtra(PostActivity.BODY, post.getBody());
         intent.putExtra(PostActivity.DATE, post.getDate());
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        PostModel post = adapter.getList().get(position);
+        showPostItem(post);
     }
 }

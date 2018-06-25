@@ -14,7 +14,7 @@ import postlist.unitbean.com.unitbeanpostlist.ui.post.views.PostView;
 @InjectViewState
 public class PostPresenter extends BasePresenter<PostView> {
 
-    List<CommentModel> list;
+    private List<CommentModel> list;
 
     public void makeRequestToComments(int postId){
 
@@ -35,5 +35,9 @@ public class PostPresenter extends BasePresenter<PostView> {
                 });
 
         subscriptions.add(disposable);
+    }
+
+    public List<CommentModel> getList(){
+        return list;
     }
 }
