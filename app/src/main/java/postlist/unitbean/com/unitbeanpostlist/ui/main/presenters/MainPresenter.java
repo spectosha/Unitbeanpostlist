@@ -1,5 +1,8 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.main.presenters;
 
+import android.content.ClipData;
+import android.view.MenuItem;
+
 import com.arellomobile.mvp.InjectViewState;
 
 import java.util.ArrayList;
@@ -9,74 +12,50 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import postlist.unitbean.com.unitbeanpostlist.R;
 import postlist.unitbean.com.unitbeanpostlist.di.services.db.entities.PostEntity;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.presenters.BasePresenter;
+import postlist.unitbean.com.unitbeanpostlist.ui.main.models.ImageNavigationViewModel;
+import postlist.unitbean.com.unitbeanpostlist.ui.main.models.ItemNavigationViewModel;
+import postlist.unitbean.com.unitbeanpostlist.ui.main.models.NavigationEnum;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.models.PostModel;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.views.MainView;
+import postlist.unitbean.com.unitbeanpostlist.ui.postlist.fragments.PostListFragment;
 
 @InjectViewState
 public class MainPresenter extends BasePresenter<MainView> {
 
-    private List<PostModel> list = new ArrayList<>();
 
-    public void makeRequestToPosts() {
+    List<NavigationEnum> list = new ArrayList<>();
 
-        Disposable disposable = coreServices
-                .getApiService()
-                .getApi()
-                .getPosts()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(r -> getViewState().showProgressBar())
-                .subscribe(response -> {
-                    list = response;
-                    getViewState().showPosts(list);
-                    getViewState().hideProgressBar();
-                    insertAllPosts(list);
-                }, throwable -> {
-                    getPostsFromDb();
-                });
-
-        subscriptions.add(disposable);
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+        list.add(new ImageNavigationViewModel(R.drawable.splash_screen));
+        list.add(new ItemNavigationViewModel(R.drawable.ic_post_list_24dp, "Posts"));
+        list.add(new ItemNavigationViewModel(R.drawable.ic_settings_24dp, "Settings"));
+        list.add(new ItemNavigationViewModel(R.drawable.ic_profile_24dp, "Profile"));
     }
 
-    private void insertAllPosts(List<PostModel> insertListModel){
-        //Cast to PostEntity
-        List<PostEntity> insertListEntity = new ArrayList<>();
-        for(PostModel p : insertListModel) insertListEntity.add(p.castToPostEntity());
+    public void chooseNavigationViewItem(MenuItem item){
 
-        Disposable insert = Completable.fromAction(() -> coreServices.getRoomService()
-                .getDao()
-                .insertPost(insertListEntity))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        subscriptions.add(insert);
+        switch(item.getItemId()){
+            case R.id.to_post_list:
+                getViewState().chooseFragmentLayout(new PostListFragment());
+                break;
+            case R.id.to_profile:
+                getViewState().chooseFragmentLayout(new PostListFragment());
+                break;
+            case R.id.to_settings:
+                getViewState().chooseFragmentLayout(new PostListFragment());
+                break;
+        }
+
+        item.setChecked(true);
+        getViewState().closeNavigationView();
     }
 
-    private void getPostsFromDb(){
-
-        Disposable disposable = coreServices
-                .getRoomService()
-                .getDao()
-                .getAllPosts()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(result -> {
-                    getViewState().log("DB size: " + result.size());
-                    list.clear();
-                    for(PostEntity p : result) list.add(p.castToPostModel());
-                    getViewState().showPosts(list);
-                    getViewState().hideProgressBar();
-                }, throwable -> {
-                    getViewState().log("Unsuccessful trying to get posts: " + throwable.getMessage());
-                    getViewState().hideProgressBar();
-                });
-
-        subscriptions.add(disposable);
-    }
-
-    public List<PostModel> getList() {
+    public List<NavigationEnum> getList() {
         return list;
     }
 

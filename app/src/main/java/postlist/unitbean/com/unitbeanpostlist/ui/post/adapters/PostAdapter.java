@@ -64,7 +64,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        //TODO это вообще законно?
         return comments.size() + 1;
     }
 

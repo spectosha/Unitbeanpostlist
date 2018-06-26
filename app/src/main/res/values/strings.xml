@@ -4,4 +4,7 @@
     <string name="common_ok">OK</string>
 
     <string name="post_action_bar_title">Статья</string>
+    <string name="posts">Posts</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
 </resources>

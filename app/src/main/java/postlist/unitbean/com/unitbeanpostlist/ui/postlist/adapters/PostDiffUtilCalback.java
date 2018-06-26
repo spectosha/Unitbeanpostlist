@@ -1,4 +1,4 @@
-package postlist.unitbean.com.unitbeanpostlist.ui.main.adapters;
+package postlist.unitbean.com.unitbeanpostlist.ui.postlist.adapters;
 
 import android.support.v7.util.DiffUtil;
 

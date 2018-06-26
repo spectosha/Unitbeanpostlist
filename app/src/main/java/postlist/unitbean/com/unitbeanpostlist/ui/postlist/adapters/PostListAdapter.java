@@ -1,4 +1,4 @@
-package postlist.unitbean.com.unitbeanpostlist.ui.main.adapters;
+package postlist.unitbean.com.unitbeanpostlist.ui.postlist.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,19 +15,15 @@ import postlist.unitbean.com.unitbeanpostlist.R;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.adapter.BaseAdapter;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.models.PostModel;
 
-public class MainPostAdapter extends BaseAdapter<MainPostAdapter.PostHolder> {
+public class PostListAdapter extends BaseAdapter<PostListAdapter.PostHolder> {
 
     private List<PostModel> posts = new ArrayList<>();
-
-    private Context parent_context;
 
     @NonNull
     @Override
     public PostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_post, parent, false);
-
-        this.parent_context = parent.getContext();
 
         return new PostHolder(view);
     }

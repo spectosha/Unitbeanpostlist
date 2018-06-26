@@ -3,9 +3,11 @@ package postlist.unitbean.com.unitbeanpostlist.ui.post.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -22,7 +24,7 @@ import postlist.unitbean.com.unitbeanpostlist.ui.post.models.PostModel;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.presenters.PostPresenter;
 import postlist.unitbean.com.unitbeanpostlist.ui.post.views.PostView;
 
-public class PostActivity extends BaseActivity implements PostView, View.OnClickListener{
+public class PostActivity extends BaseActivity implements PostView{
 
     public static final String POST_ID = "post_id";
     public static final String TITLE = "title";
@@ -47,9 +49,9 @@ public class PostActivity extends BaseActivity implements PostView, View.OnClick
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setTitle(R.string.post_action_bar_title);
-        toolbar.setNavigationOnClickListener(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
 
         Intent intent = getIntent();
         int postId = intent.getExtras().getInt(POST_ID, 1);
@@ -70,12 +72,21 @@ public class PostActivity extends BaseActivity implements PostView, View.OnClick
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void showComments(List<CommentModel> newComments) {
         CommentDiffUtilCallback commentsDiffUtil = new CommentDiffUtilCallback(postAdapter.getComments(), newComments);
         DiffUtil.DiffResult commentsDiffResult = DiffUtil.calculateDiff(commentsDiffUtil);
         postAdapter.setComments(newComments);
         commentsDiffResult.dispatchUpdatesTo(postAdapter);
-        //TODO RV перематывается в самый конец после добавления комментов. Это костыль или так норм?
         recyclerView.scrollToPosition(0);
     }
 
@@ -87,10 +98,5 @@ public class PostActivity extends BaseActivity implements PostView, View.OnClick
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(ProgressBar.INVISIBLE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        finish();
     }
 }
