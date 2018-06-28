@@ -1,7 +1,5 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.post.models;
 
-import android.annotation.SuppressLint;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.text.SimpleDateFormat;
@@ -11,7 +9,7 @@ import java.util.List;
 
 import postlist.unitbean.com.unitbeanpostlist.di.services.db.entities.PostEntity;
 
-public class PostModel {
+public class PostModel implements PostEnum {
 
     @SerializedName("id")
     private int id;
@@ -99,5 +97,10 @@ public class PostModel {
 
     public PostEntity castToPostEntity(){
         return new PostEntity(id, userId, title, body);
+    }
+
+    @Override
+    public int getType() {
+        return PostEnum.HEADER;
     }
 }

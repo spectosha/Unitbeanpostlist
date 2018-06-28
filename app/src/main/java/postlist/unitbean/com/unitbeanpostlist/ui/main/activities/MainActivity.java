@@ -1,12 +1,8 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.main.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -19,26 +15,23 @@ import postlist.unitbean.com.unitbeanpostlist.R;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.activities.BaseActivity;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.adapter.BaseAdapter;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.fragments.BaseFragment;
+import postlist.unitbean.com.unitbeanpostlist.ui.bottomsheetposts.fragments.BottomSheetPostsFragment;
+import postlist.unitbean.com.unitbeanpostlist.ui.countdown.fragments.CountdownFragment;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.adapters.CollectionsPagerAdapter;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.adapters.NavigationAdapter;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.presenters.MainPresenter;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.views.MainView;
+import postlist.unitbean.com.unitbeanpostlist.ui.postlist.fragments.PostListFragment;
 
 public class MainActivity extends BaseActivity implements MainView, BaseAdapter.OnItemClickListener {
 
     @InjectPresenter
     MainPresenter presenter;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-
     private Toolbar toolbar;
 
-    RecyclerView recyclerView;
-    NavigationAdapter adapter;
-
-     ViewPager viewPager;
-     CollectionsPagerAdapter collectionsPagerAdapter;
+    private ViewPager viewPager;
+    private CollectionsPagerAdapter collectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +44,10 @@ public class MainActivity extends BaseActivity implements MainView, BaseAdapter.
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        recyclerView = findViewById(R.id.rvNavigation);
-        adapter = new NavigationAdapter(presenter);
-        adapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(adapter);
-
         collectionsPagerAdapter = new CollectionsPagerAdapter(getSupportFragmentManager());
+        collectionsPagerAdapter.addPage(new PostListFragment());
+        collectionsPagerAdapter.addPage(new CountdownFragment());
+        collectionsPagerAdapter.addPage(new BottomSheetPostsFragment());
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(collectionsPagerAdapter);
 
@@ -69,7 +59,7 @@ public class MainActivity extends BaseActivity implements MainView, BaseAdapter.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
+                //drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,7 +67,7 @@ public class MainActivity extends BaseActivity implements MainView, BaseAdapter.
 
     @Override
     public void closeNavigationView() {
-        drawerLayout.closeDrawers();
+        //drawerLayout.closeDrawers();
     }
 
     @Override

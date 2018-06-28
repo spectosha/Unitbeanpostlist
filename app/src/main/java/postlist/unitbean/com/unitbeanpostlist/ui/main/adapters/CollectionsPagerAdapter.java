@@ -5,22 +5,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import postlist.unitbean.com.unitbeanpostlist.ui.postlist.fragments.PostListFragment;
 
-public class CollectionsPagerAdapter extends FragmentPagerAdapter {
+public class CollectionsPagerAdapter extends FragmentStatePagerAdapter {
+
+    private List<Fragment> pages = new ArrayList<>();
+
     public CollectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = new PostListFragment();
-        return fragment;
+        return pages.get(position);
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return pages.size();
+    }
+
+    public void addPage(Fragment fragment){
+        pages.add(fragment);
     }
 
     @Override

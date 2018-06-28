@@ -37,7 +37,6 @@ public class PostListFragment extends BaseFragment implements PostListView, Base
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_post, container, false);
 
         progressBar = v.findViewById(R.id.post_list_progress_bar);

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -48,10 +49,14 @@ public class PostActivity extends BaseActivity implements PostView{
         setContentView(R.layout.activity_post);
 
         toolbar = findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.post_item_progress_bar);
+        recyclerView = findViewById(R.id.post_item_comments);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
+
 
         Intent intent = getIntent();
         int postId = intent.getExtras().getInt(POST_ID, 1);
@@ -61,12 +66,10 @@ public class PostActivity extends BaseActivity implements PostView{
         postModel.setId(postId);
         postModel.setTitle(title);
         postModel.setBody(body);
+        presenter.setHeader(postModel);
 
-        recyclerView = findViewById(R.id.post_item_comments);
         postAdapter = new PostAdapter(postModel);
         recyclerView.setAdapter(postAdapter);
-
-        progressBar = findViewById(R.id.post_item_progress_bar);
 
         presenter.makeRequestToComments(postId);
     }

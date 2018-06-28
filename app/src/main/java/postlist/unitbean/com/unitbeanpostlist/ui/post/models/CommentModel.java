@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CommentModel {
+public class CommentModel implements PostEnum {
 
     @SerializedName("postId")
     private int postId;
@@ -26,7 +26,6 @@ public class CommentModel {
     public CommentModel(){
 
     }
-
 
     public int getPostId() {
         return postId;
@@ -84,6 +83,11 @@ public class CommentModel {
         comment.setBody(body);
         comment.setEmail(email);
         return comment;
+    }
+
+    @Override
+    public int getType() {
+        return PostEnum.COMMENT;
     }
 
     @Override
