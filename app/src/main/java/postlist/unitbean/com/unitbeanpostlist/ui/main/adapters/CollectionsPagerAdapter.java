@@ -3,16 +3,16 @@ package postlist.unitbean.com.unitbeanpostlist.ui.main.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import postlist.unitbean.com.unitbeanpostlist.ui.postlist.fragments.PostListFragment;
+import postlist.unitbean.com.unitbeanpostlist.ui.base.fragments.BaseFragment;
 
-public class CollectionsPagerAdapter extends FragmentStatePagerAdapter {
+public class CollectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> pages = new ArrayList<>();
+    List<BaseFragment> fragments = new ArrayList<>();
+    private String tabTitles[] = new String[] { "Posts", "Settings", "Profile" };
 
     public CollectionsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -20,20 +20,20 @@ public class CollectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return pages.get(position);
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return pages.size();
+        return fragments.size();
     }
 
-    public void addPage(Fragment fragment){
-        pages.add(fragment);
+    public void addPage(BaseFragment fragment){
+        fragments.add(fragment);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "OBJECT " + (position + 1);
+        return tabTitles[position];
     }
 }

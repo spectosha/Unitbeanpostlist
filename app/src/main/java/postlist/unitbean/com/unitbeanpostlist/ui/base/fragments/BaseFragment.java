@@ -11,7 +11,6 @@ public class BaseFragment extends MvpAppCompatFragment implements BaseView{
 
     protected BaseActivity activity;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

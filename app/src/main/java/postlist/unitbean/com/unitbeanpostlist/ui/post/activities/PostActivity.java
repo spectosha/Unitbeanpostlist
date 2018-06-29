@@ -68,7 +68,8 @@ public class PostActivity extends BaseActivity implements PostView{
         postModel.setBody(body);
         presenter.setHeader(postModel);
 
-        postAdapter = new PostAdapter(postModel);
+        postAdapter = new PostAdapter();
+        postAdapter.setHeader(postModel);
         recyclerView.setAdapter(postAdapter);
 
         presenter.makeRequestToComments(postId);
@@ -86,11 +87,12 @@ public class PostActivity extends BaseActivity implements PostView{
 
     @Override
     public void showComments(List<CommentModel> newComments) {
-        CommentDiffUtilCallback commentsDiffUtil = new CommentDiffUtilCallback(postAdapter.getComments(), newComments);
-        DiffUtil.DiffResult commentsDiffResult = DiffUtil.calculateDiff(commentsDiffUtil);
+        //CommentDiffUtilCallback commentsDiffUtil = new CommentDiffUtilCallback(postAdapter.getComments(), newComments);
+        //DiffUtil.DiffResult commentsDiffResult = DiffUtil.calculateDiff(commentsDiffUtil);
         postAdapter.setComments(newComments);
-        commentsDiffResult.dispatchUpdatesTo(postAdapter);
-        recyclerView.scrollToPosition(0);
+        postAdapter.notifyDataSetChanged();
+        //commentsDiffResult.dispatchUpdatesTo(postAdapter);
+        //recyclerView.scrollToPosition(0);
     }
 
     @Override

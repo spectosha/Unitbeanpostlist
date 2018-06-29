@@ -52,7 +52,7 @@ public class BottomSheetPostsPresenter extends BasePresenter<BottomSheetPostsVie
                 .doOnError(e -> getViewState().log("Error: " + e.getMessage()))
                 .subscribe(result -> {
                     listComments = result;
-                    getViewState().showComments(listComments);
+                    getViewState().showPost(listPosts.get(postId), listComments);
                 }, throwable -> {
                     getViewState().log("Нет соединения с интернетом!");
                 });

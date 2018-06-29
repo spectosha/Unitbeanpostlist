@@ -9,6 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
+        android:background="@color/colorPrimary"
         android:elevation="@dimen/base_elevation"
         android:translationZ="@dimen/base_tranzition_Z"/>
 

@@ -39,7 +39,7 @@ public class BottomSheetPostsFragment extends BaseFragment implements BottomShee
     private RecyclerView recyclerViewMain;
     private PostListAdapter adapter;
 
-    private BottomSheetBehavior bottomSheet;
+    private BottomSheetBehavior bottomSheetBehavior;
     private RecyclerView recyclerViewBottomSheet;
     private PostAdapter bottomSheetAdapter;
     @Nullable
@@ -53,10 +53,12 @@ public class BottomSheetPostsFragment extends BaseFragment implements BottomShee
         adapter.setOnItemClickListener(this);
         recyclerViewMain.setAdapter(adapter);
 
-        bottomSheet = BottomSheetBehavior.from(v.findViewById(R.id.bottom_sheet));
-        bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
-        recyclerViewBottomSheet = v.findViewById(R.id.bottom_sheet_rv);
+        bottomSheetBehavior = BottomSheetBehavior.from(v.findViewById(R.id.bottom_sheet));
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
+        recyclerViewBottomSheet = v.findViewById(R.id.bottom_sheet_rv);
+        bottomSheetAdapter = new PostAdapter();
+        recyclerViewBottomSheet.setAdapter(bottomSheetAdapter);
         presenter.makeRequestToPosts();
 
         return v;
@@ -80,25 +82,31 @@ public class BottomSheetPostsFragment extends BaseFragment implements BottomShee
     }
 
     public void showPostItem(PostModel post) {
-        bottomSheetAdapter = new PostAdapter(post);
-        presenter.makeRequestToComments(post.getId());
-        recyclerViewBottomSheet.setAdapter(bottomSheetAdapter);
+        bottomSheetAdapter.setHeader(post);
+        bottomSheetAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showComments(List<CommentModel> newComments) {
-        CommentDiffUtilCallback commentsDiffUtil = new CommentDiffUtilCallback(bottomSheetAdapter.getComments(), newComments);
-        DiffUtil.DiffResult commentsDiffResult = DiffUtil.calculateDiff(commentsDiffUtil);
-        bottomSheetAdapter.setComments(newComments);
-        commentsDiffResult.dispatchUpdatesTo(bottomSheetAdapter);
-        recyclerViewBottomSheet.smoothScrollToPosition(0);
+        //CommentDiffUtilCallback commentsDiffUtil = new CommentDiffUtilCallback(bottomSheetAdapter.getComments(), newComments);
+        //DiffUtil.DiffResult commentsDiffResult = DiffUtil.calculateDiff(commentsDiffUtil);
+        bottomSheetAdapter.setComments(presenter.getListComments());
+        //commentsDiffResult.dispatchUpdatesTo(bottomSheetAdapter);
+        //recyclerViewBottomSheet.smoothScrollToPosition(0);
+        bottomSheetAdapter.notifyDataSetChanged();
+    }
 
-        bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+    @Override
+    public void showPost(PostModel post, List<CommentModel> newComments) {
+        bottomSheetAdapter.setHeader(post);
+        bottomSheetAdapter.setComments(presenter.getListComments());
+        bottomSheetAdapter.notifyDataSetChanged();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @Override
     public void onClick(View view, int position) {
         PostModel post = adapter.getList().get(position);
-        showPostItem(post);
+        presenter.makeRequestToComments(post.getId());
     }
 }

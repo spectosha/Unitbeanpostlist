@@ -22,7 +22,7 @@ public class CountdownPresenter extends BasePresenter<CountdownView> {
 
     private long startTime = 1 * 60 * 1000; // 1 минута
 
-    private int STEP_MILLS = 100;
+    private int STEP_MILLS = 10;
 
     private void startTimer(){
 

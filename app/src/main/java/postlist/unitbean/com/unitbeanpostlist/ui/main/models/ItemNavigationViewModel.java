@@ -1,6 +1,8 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.main.models;
 
-public class ItemNavigationViewModel implements NavigationEnum {
+import postlist.unitbean.com.unitbeanpostlist.ui.base.SelectableItem;
+
+public class ItemNavigationViewModel extends SelectableItem implements NavigationEnum {
 
     private String title;
     private int image;

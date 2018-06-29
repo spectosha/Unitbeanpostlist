@@ -1,5 +1,6 @@
 package postlist.unitbean.com.unitbeanpostlist.ui.postlist.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,8 @@ import postlist.unitbean.com.unitbeanpostlist.ui.postlist.presenters.PostListPre
 import postlist.unitbean.com.unitbeanpostlist.ui.postlist.view.PostListView;
 
 public class PostListFragment extends BaseFragment implements PostListView, BaseAdapter.OnItemClickListener {
+
+    public static final String TITLE = "title";
 
     @InjectPresenter
     PostListPresenter presenter;

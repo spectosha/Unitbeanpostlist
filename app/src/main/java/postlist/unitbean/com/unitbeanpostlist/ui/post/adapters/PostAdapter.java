@@ -27,10 +27,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private PostModel header;
     private List<CommentModel> comments = new ArrayList<>();
 
-    public PostAdapter(PostModel postModel){
-        this.header = postModel;
-    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,7 +60,8 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return comments.size() + 1;
+        int headerExist = (header != null) ? 1 : 0;
+        return comments.size() + headerExist;
     }
 
     public List<CommentModel> getComments() {
@@ -72,10 +69,17 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void setComments(List<CommentModel> newComments) {
-        comments = new ArrayList<>();
-        for (CommentModel comment : newComments)
-            this.comments.add(comment.copy());
+        this.comments = newComments;
     }
+
+    public PostModel getHeader() {
+        return header;
+    }
+
+    public void setHeader(PostModel header) {
+        this.header = header;
+    }
+
 
     class PostHeaderHolder extends RecyclerView.ViewHolder{
 
@@ -100,7 +104,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class CommentHolder extends RecyclerView.ViewHolder{
 
-        private ImageView profile_image;
         private TextView name;
         private TextView body;
         private TextView date;

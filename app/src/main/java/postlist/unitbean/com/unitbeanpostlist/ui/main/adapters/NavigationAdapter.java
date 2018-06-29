@@ -2,14 +2,19 @@ package postlist.unitbean.com.unitbeanpostlist.ui.main.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import postlist.unitbean.com.unitbeanpostlist.BaseApplication;
 import postlist.unitbean.com.unitbeanpostlist.R;
+import postlist.unitbean.com.unitbeanpostlist.ui.base.SelectableItem;
 import postlist.unitbean.com.unitbeanpostlist.ui.base.adapter.BaseAdapter;
+import postlist.unitbean.com.unitbeanpostlist.ui.base.views.BaseView;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.models.ImageNavigationViewModel;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.models.ItemNavigationViewModel;
 import postlist.unitbean.com.unitbeanpostlist.ui.main.models.NavigationEnum;
@@ -48,6 +53,21 @@ public class NavigationAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
         }
     }
 
+    public void selectItem(int position) {
+        for(int i = 0; i < getItemCount(); i++){
+            if(presenter.getList().get(i).getType() == NavigationEnum.ITEM){
+                ItemNavigationViewModel item = (ItemNavigationViewModel) presenter.getList().get(i);
+                if(i == position) {
+                    item.setSelected(true);
+                }
+                else {
+                    item.setSelected(false);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         return presenter.getList().get(position).getType();
@@ -60,15 +80,11 @@ public class NavigationAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
 
     class HeaderHolder extends RecyclerView.ViewHolder{
 
-        ImageView imageView;
-
         public HeaderHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.image_navigation_view);
         }
 
         public void fullContent(ImageNavigationViewModel item){
-            imageView.setImageResource(item.getImageId());
         }
     }
 
@@ -89,6 +105,13 @@ public class NavigationAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
         public void fullContent(ItemNavigationViewModel item){
             imageView.setImageResource(item.getImage());
             textView.setText(item.getTitle());
+            if (item.isSelected()){
+                imageView.setColorFilter(BaseApplication.getAppComponent().getContext().getResources().getColor(R.color.colorPrimary));
+                textView.setTextColor(BaseApplication.getAppComponent().getContext().getResources().getColor(R.color.colorPrimary));
+            }else{
+                imageView.setColorFilter(BaseApplication.getAppComponent().getContext().getResources().getColor(R.color.text_color_grey));
+                textView.setTextColor(BaseApplication.getAppComponent().getContext().getResources().getColor(R.color.text_color_grey));
+            }
         }
 
         @Override

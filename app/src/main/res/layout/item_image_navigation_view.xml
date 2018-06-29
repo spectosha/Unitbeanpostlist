@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image_navigation_view"
     android:layout_width="match_parent"
-    android:layout_height="192dp">
-
-    <ImageView
-        android:id="@+id/image_navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splash_screen"
-        android:padding="32dp"
-        android:orientation="vertical"
-        android:gravity="bottom">
-    </ImageView>
-
-</RelativeLayout>
+    android:layout_height="192dp"
+    android:background="@drawable/splash_screen"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:layout_marginBottom="@dimen/base_indent_half">
+</ImageView>
