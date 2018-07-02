@@ -71,10 +71,10 @@ public class PostListFragment extends BaseFragment implements PostListView, Base
 
     public void showPostItem(PostModel post) {
         Intent intent = new Intent(activity, PostActivity.class);
-        intent.putExtra(PostActivity.POST_ID, post.getId());
-        intent.putExtra(PostActivity.TITLE, post.getTitle());
-        intent.putExtra(PostActivity.BODY, post.getBody());
-        intent.putExtra(PostActivity.DATE, post.getDate());
+        intent.putExtra(PostActivity.Companion.getPOST_ID(), post.getId());
+        intent.putExtra(PostActivity.Companion.getTITLE(), post.getTitle());
+        intent.putExtra(PostActivity.Companion.getBODY(), post.getBody());
+        intent.putExtra(PostActivity.Companion.getDATE(), post.getDate());
         startActivity(intent);
     }
 

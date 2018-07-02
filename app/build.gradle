@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -60,7 +62,14 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     testImplementation "android.arch.persistence.room:testing:$room_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kapt 'com.google.dagger:dagger-android-processor:2.16'
+    kapt 'com.google.dagger:dagger-compiler:2.16'
+    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+    kapt "android.arch.persistence.room:compiler:$room_version"
+
 }
 repositories {
     mavenCentral()
