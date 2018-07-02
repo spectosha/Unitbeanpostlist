@@ -57,7 +57,6 @@ public class PostActivity extends BaseActivity implements PostView{
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
 
-
         Intent intent = getIntent();
         int postId = intent.getExtras().getInt(POST_ID, 1);
         String title = intent.getExtras().getString(TITLE, "undefined");

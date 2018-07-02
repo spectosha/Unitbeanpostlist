@@ -16,14 +16,14 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="300dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/black_10"
-                app:layout_scrollFlags="exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:expandedTitleMarginStart="32dp"
                 app:expandedTitleMarginEnd="64dp"
                 app:collapsedTitleTextAppearance="@style/CollapsedAppBarCollapsed"

@@ -55,10 +55,6 @@ public class PostPresenter extends BasePresenter<PostView> {
         return list;
     }
 
-    public List<PostEnum> getListOfTypes(){
-        return listOfTypes;
-    }
-
     private void setListOfTypes(){
         listOfTypes.clear();
         listOfTypes.add(header);
